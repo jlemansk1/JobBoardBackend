@@ -1,5 +1,7 @@
 package it.yourfirstjob.Leman.Model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +25,10 @@ public class Offer {
 //    @OneToMany(mappedBy = "offer", cascade = CascadeType.ALL)
 //    private List<JobApplication> jobApplications;
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference(value ="offer-company")
+    //@ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 

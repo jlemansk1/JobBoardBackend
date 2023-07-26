@@ -21,6 +21,7 @@ public class OfferService {
     }
 
     public Offer createOffer(Offer offer) {
+        System.out.println("dziala 4");
         return offerRepository.save(offer);
     }
 
@@ -33,10 +34,4 @@ public class OfferService {
         return optionalOffer.orElse(null);
     }
 
-//    public Offer createReview(String reviewBody, String imdbId) {
-//        Offer offer = new Offer()
-//
-//        companyRepository.save(Offer)
-//        return Offer;
-//    }
 }

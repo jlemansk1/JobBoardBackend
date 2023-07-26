@@ -1,6 +1,7 @@
 package it.yourfirstjob.Leman.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +26,8 @@ public class Company {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "company",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "company",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonManagedReference(value="offer-company")
     private List<Offer> offers;
 
     public Company(String name, String email, String phone) {
