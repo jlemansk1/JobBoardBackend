@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "*")
@@ -68,6 +69,16 @@ public class OfferController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/company/{companyId}")
+    public ResponseEntity<Optional<List<Offer>>> getOffersByCompanyId(@PathVariable Long companyId) {
+        Company company = companyService.getCompanyById(companyId);
+        if (company == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        Optional<List<Offer>> offers = offerService.getOffersByCompany(company);
+        return new ResponseEntity<>(offers, HttpStatus.OK);
     }
 
     @DeleteMapping("delete/{offerId}")

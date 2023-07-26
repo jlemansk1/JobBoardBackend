@@ -1,9 +1,9 @@
 package it.yourfirstjob.Leman.Service;
 
 
+
 import it.yourfirstjob.Leman.Model.Company;
 import it.yourfirstjob.Leman.Model.Offer;
-import it.yourfirstjob.Leman.Repository.CompanyRepository;
 import it.yourfirstjob.Leman.Repository.OfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,4 +34,7 @@ public class OfferService {
         return optionalOffer.orElse(null);
     }
 
+    public Optional<List<Offer>> getOffersByCompany(Company company) {
+        return offerRepository.findByCompany(company);
+    }
 }
