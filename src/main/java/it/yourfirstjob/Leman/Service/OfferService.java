@@ -37,4 +37,6 @@ public class OfferService {
     public Optional<List<Offer>> getOffersByCompany(Company company) {
         return offerRepository.findByCompany(company);
     }
+
+
 }

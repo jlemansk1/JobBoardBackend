@@ -26,12 +26,11 @@ public class Offer {
 //    private List<JobApplication> jobApplications;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference(value ="offer-company")
     //@ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
-
 
 
 }

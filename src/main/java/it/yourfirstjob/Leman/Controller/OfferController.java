@@ -51,9 +51,9 @@ public class OfferController {
         Offer newOffer = new Offer();
         newOffer.setJobTittle(offerRequest.getJobTitle());
         newOffer.setJobLocation(offerRequest.getJobLocation());
+
         // Przypisujemy firmę do oferty
         newOffer.setCompany(company);
-        System.out.println("Dziala2");
         // Zapisujemy nową ofertę w bazie danych
         Offer createdOffer = offerService.createOffer(newOffer);
         System.out.println("Dziala3");
@@ -85,6 +85,21 @@ public class OfferController {
     public ResponseEntity<Void> deleteCompany(@PathVariable Long offerId) {
         offerService.deleteOffer(offerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/{offerId}/company")
+    public ResponseEntity<Company> getCompanyByOfferId(@PathVariable Long offerId) {
+        Offer offer = offerService.getOfferById(offerId);
+        if (offer != null) {
+            Company company = offer.getCompany();
+            if (company != null) {
+                return new ResponseEntity<>(company, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 //    @AllArgsConstructor
 //    @NoArgsConstructor
