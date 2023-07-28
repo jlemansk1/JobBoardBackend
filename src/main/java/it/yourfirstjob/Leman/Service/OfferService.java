@@ -21,7 +21,6 @@ public class OfferService {
     }
 
     public Offer createOffer(Offer offer) {
-        System.out.println("dziala 4");
         return offerRepository.save(offer);
     }
 

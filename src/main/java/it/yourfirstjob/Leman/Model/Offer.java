@@ -28,7 +28,6 @@ public class Offer {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonBackReference(value ="offer-company")
-    //@ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
     private Company company;
 
