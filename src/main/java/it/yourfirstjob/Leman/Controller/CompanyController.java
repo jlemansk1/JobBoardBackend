@@ -19,7 +19,6 @@ public class CompanyController {
 
     @PostMapping("/addcompany")
     public ResponseEntity<Company> createCompany(@RequestBody Company company) {
-//        Company company1 = new Company(company.getName(), company.getEmail(),company.getPhone());
         Company createdCompany = companyService.createCompany(company);
         return new ResponseEntity<>(createdCompany, HttpStatus.CREATED);
     }

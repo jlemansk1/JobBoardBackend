@@ -4,6 +4,7 @@ package it.yourfirstjob.Leman.Controller;
 import it.yourfirstjob.Leman.Model.JobApplication;
 import it.yourfirstjob.Leman.Service.JobApplicationService;
 import it.yourfirstjob.Leman.Service.OfferService;
+import it.yourfirstjob.Leman.Service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,13 @@ public class JobApplicationController {
     private JobApplicationService jobApplicationService;
     @Autowired
     private OfferService offerService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/add")
     public ResponseEntity<JobApplication> postJobApplication(@RequestBody JobApplicationRequest request) {
         Long offerId = request.getOfferId();
+        Long userId = request.getUserId();
         JobApplication jobApplication = new JobApplication();
         jobApplication.setApplicationDate(request.getApplicationDate());
         jobApplication.setStatus(request.getStatus());
@@ -38,7 +42,10 @@ public class JobApplicationController {
         if (jobApplication.getOffer() == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
+        jobApplication.setUser(userService.getUserById(userId));
+        if (jobApplication.getUser() == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         // Dodajemy nową aplikację na stanowisko pracy
         JobApplication createdJobApplication = jobApplicationService.createJobApplication(jobApplication);
         return new ResponseEntity<>(createdJobApplication, HttpStatus.CREATED);
@@ -66,5 +73,6 @@ public class JobApplicationController {
         private Timestamp applicationDate;
         private String status;
         private Long offerId;
+        private Long userId;
     }
 }

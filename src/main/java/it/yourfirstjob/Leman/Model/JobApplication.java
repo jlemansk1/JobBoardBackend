@@ -27,8 +27,9 @@ public class JobApplication {
     @JoinColumn(name = "offer_id", nullable = false)
     private Offer offer;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference(value ="JobApplication-user")
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }
