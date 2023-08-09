@@ -22,6 +22,7 @@ public class User {
     //@Column(nullable = false)
     private String name;
     private String email;
+    private String password;
     private String phone;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY , cascade = CascadeType.ALL)
